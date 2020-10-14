@@ -1,0 +1,71 @@
+<div class="container">
+    
+    <div class="row d-flex">
+        <h1 class="title">Dashboard Koyama</h1>
+        <span class="subtitle"> Bem vindo ao painel de vistoria Koyama</span>
+    </div>
+    
+    <div class="row d-flex">
+        <div class="card">
+            <div class="card-body">
+                <h1>
+                    Quantidade de Relátorios
+                    <span>{{ count }}</span>
+                </h1>
+            </div>
+            <div class="card-footer" (click)="goToReportList();">
+                <p>
+                    ver lista
+                </p>
+            </div>
+        </div>
+        
+        <div class="card agenda">
+            <div class="card-body">
+                <h1>
+                    Agendadas
+                    <span>{{ count }}</span>
+                </h1>
+            </div>
+            <div class="card-footer" (click)="goToAgenda();">
+                <p>
+                    ver lista
+                </p>
+            </div>
+        </div>
+
+        <div class="card newreport">
+            <div class="card-body">
+                <h1>
+                    Novo Relatório
+                </h1>
+            </div>
+            <div class="card-footer">
+                <a routerLink="reports/add">
+                    <p>
+                        criar 
+                    </p>
+                </a>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row d-flex">
+        <h1 class="title">Corretores</h1>
+        <span class="subtitle"> lista de corretores com mais vistorias</span>
+    </div>
+    
+    <div class="row d-flex">
+        <h1 class="title">Juntar Relatórios</h1>
+        <button class="btn btn-koyama" (click)="goToJoint();">Juntar</button>
+    </div>
+
+    <!--
+    <div class="row d-flex">
+        <h1 class="title">- - - </h1>
+        <button class="btn btn-koyama" (click)="addTestReport();">Adicionar Relatorio</button>
+    </div>
+    -->
+    
+</div>

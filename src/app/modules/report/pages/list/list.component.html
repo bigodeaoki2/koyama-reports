@@ -1,0 +1,60 @@
+<div class="container">
+  
+  <div class="row d-flex">
+    <h1 class="title">Listagem de relatórios </h1>
+    <span class="subtitle"> Lista dos últimos relatórios de vistoria </span>
+  </div>
+  
+  <div class="row d-flex">
+    
+    
+    <table class="table table-striped">
+      <thead>
+        <th>ID</th>
+        <th>ID Imóvel</th>
+        <th>Coretor</th>
+        <th>Data</th>
+        <th>Opções</th>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of list; let i = index;">
+          <tr>
+            <td class="key">{{ item.id }}</td>
+            <td>{{ item.imovel }}</td>
+            <td>{{ item.corretor }}</td>
+            <td>{{ item.data }}</td>
+            <td>
+              <button class="btn btn-koyama" [routerLink]="['detalhes/' + item.id]">Relatório</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    
+    <!--
+    <table class="table table-striped">
+      <thead>
+        <th>ID</th>
+        <th>ID Imóvel</th>
+        <th>Coretor</th>
+        <th>Data</th>
+        <th>Opções</th>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of list; let i = index;">
+          <tr *ngIf="item.info.error">
+            <td class="key">{{ item.key }}</td>
+            <td>{{ item.info.imovel.id }}</td>
+            <td>{{ item.info.imovel.corretor }}</td>
+            <td>{{ item.info.imovel.data }}</td>
+            <td>
+              <button class="btn btn-koyama" [routerLink]="['error/' + item.key]">Ver fotos</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    -->
+    
+  </div>
+</div>

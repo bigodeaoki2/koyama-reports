@@ -1,0 +1,56 @@
+$spacing: 8px;
+
+
+h1.title {
+    margin: 0;
+    padding: 0;
+    margin-top: $spacing * 2;
+    margin-bottom: $spacing/2;
+    font-size: 14px;
+    font-weight: 700;
+    color: #66686c;
+    display: block;
+    width: 100%;
+}
+
+.subtitle {
+    padding: 0;
+    margin: 0;
+    display: block;
+    font-size: 12px;
+    margin-bottom: $spacing *2;
+    color: #a3a7ab;
+}
+
+.card {
+    border-left: 3px solid blue;
+    box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);
+    margin-right: $spacing * 2;
+    &.agenda {
+        border-left-color: #fe0946;
+    }
+    &.newreport {
+        border-left-color: #34494e;
+    }
+    .card-body {
+        h1 {
+            font-size: 16px;
+            span {
+                font-weight: bold;
+                display: inline-block;
+                margin-left: $spacing * 4;
+            }
+        }
+    }
+    .card-footer {
+        padding: $spacing/2 $spacing;
+        cursor: pointer;
+        &:hover {
+            background-color: #cacaca;
+        }
+        p {
+            margin: 0;
+            font-size: 12px;
+        }
+    }
+}

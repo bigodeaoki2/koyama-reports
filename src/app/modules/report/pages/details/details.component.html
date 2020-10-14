@@ -1,0 +1,187 @@
+<div class="container">
+
+  <div class="not-print p-3">
+    <button class="btn btn-koyama" (click)="setImage(button.status)">{{ button.text }}</button>
+  </div>
+
+  <div class="row d-flex not-print">
+    <h1 class="title">Detalhes do Relatório </h1>
+    <span class="subtitle"> Detalhamento da vistoria realizada no imóvel </span>
+  </div>
+  
+  <div class="report" *ngIf="report.length > 0">
+    
+    <div class="row">
+      <div class="col-12">
+        <img src="http://www.koyama.com.br/imagens/logo.png" alt="">
+        <div class="card">
+          <div class="card-body">
+            <p>
+              Relatório de vistoria da Koyama Imóveis.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <div class="start-info">
+
+          <ul>
+            <li> <span>Corretor:</span> {{ report[0].info.imovel.corretor }}</li>
+            <li> <span>ID Imóvel:</span> {{ report[0].info.imovel.idImovel }}</li>
+            <li> <span>Endereço Imovel:</span> {{ report[0].info.imovel.imovel }} </li>
+            <li> <span>Status:</span> {{ report[0].info.imovel.status }}</li>
+            <li> <span>Data:</span> {{ report[0].info.imovel.data }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <h2>Observações Iniciais:</h2>
+        <div class="card">
+          <div class="card-body" (click)="editField('outside', 0, 0, report[0].info.imovel, 'obs')">
+            <p class="align-left">
+              {{ report[0].info.imovel.obs }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <h2 class="subtitle">Fotos:</h2>
+        <div class="img-item" *ngFor="let item of report[0].info.imovel.imgs">
+          <img [src]="item" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="not-print mb-4">
+
+      <ngx-dropzone (change)="onSelect($event)">
+        <ngx-dropzone-label>Upload Fotos Gerais</ngx-dropzone-label>
+        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+      </ngx-dropzone>
+      
+      <button class="btn btn-koyama" (click)="addFotos('gerais', 0)">Confirmar</button>
+
+    </div>
+    
+    <!-- categorias -->
+
+    <div class="report-categories">
+
+      <!-- items -->
+      <div class="item" *ngFor="let item of report[0].info.imovel.categorias; let i = index;">
+
+        <h2  (click)="editField('nome', i, 0, item, 'nome')"> {{ i+1 }} - {{ item.nome }} </h2>
+
+        <button (click)="check(report[0].key, i)" class="btn btn-danger btn-small btn-exclude">X</button>
+        
+        <div class="entradas" *ngFor="let a of item.entradas; let b = index;">
+          
+          <h3 (click)="editField('cat', i, b, a, 'nome')">{{ i+1 }}.{{ b+1 }} - {{ a.nome }}</h3>
+          
+          <h4 (click)="editField('cat', i, b, a, 'estado')" >- <b>Estado:  </b> {{ a.estado }}</h4>
+          <h4 (click)="editField('cat', i, b, a, 'qualidade')">- <b>Qualidade:  </b> {{ a.qualidade }}</h4>
+          <h4 (click)="editField('cat', i, b, a, 'cor')">- <b (click)="editField('cat', i, b, a, 'cor')">Cor:  </b> {{ a.cor }}</h4>
+          <h4>- <b (click)="editField('cat', i, b, a, 'material')">Material:  </b> {{ a.material }}</h4>
+          <h4 *ngIf="a.tipo != ''" (click)="editField('cat', i, b, a, 'tipo')"> <b>Tipo: </b>{{ a.tipo }}</h4>
+          
+          <p (click)="editField('cat', i, b, a, 'obs')"> <b>Observações:</b></p>
+          <p> {{ a.obs }}</p>
+
+          <div class="img-item" *ngFor="let imgs of a.imgs; let c = index" >
+            <img [src]="imgs" alt="">
+          </div>
+            
+          <div class="not-print">
+
+            
+            <ngx-dropzone (change)="onSelect($event,i,b)">
+              <ngx-dropzone-label>Upload Fotos Comodo</ngx-dropzone-label>
+              <ngx-dropzone-preview *ngFor="let f of filesCategorias[i][b]; let fotoNumber=index" 
+                [removable]="true"
+                (removed)="onRemove(f,i,b,fotoNumber)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-preview>
+            </ngx-dropzone>
+            
+            <button class="btn btn-koyama" (click)="addFotos('comodo', i, b)">Confirmar</button>
+      
+          </div>
+
+        </div>
+        
+        <div class="not-print mb-4 mt-4">
+          <div class="row">
+            <form [formGroup]="formComodo" class="col-8">
+              <input type="text" formControlName="comodo" placeholder="nome do item/comodo" class="form-control">
+            </form>
+            <div class="col-3">
+              <button class="btn btn-koyama" (click)="addComodo(i)">Adicionar item</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- add items -->
+      <div class="not-print mb-4 mt-4">
+        <div class="row">
+          <form [formGroup]="formCategoria" class="col-8">
+            <input type="text" formControlName="title" placeholder="nome da categoria" class="form-control">
+          </form>
+          <div class="col-3">
+            <button class="btn btn-koyama" (click)="addCategoria()">Adicionar Comodo</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="end">
+      
+      <h6 class="obs">
+        OBS: O Locatário está ciente de que deverá devolver o imóvel nas mesmas condições em que o recebeu quando da sua desocupação.
+      </h6>
+      
+      <h1>
+        São Paulo, {{ dateString }}
+      </h1>
+      
+      <div class="signInputs" class="not-print">
+          <input type="text" (keyup)="setNewName($event)" [ngModel]="sign.admin">
+          <button (click)="changeName()">Inserir</button>
+      </div>
+
+      <div class="signs" *ngFor="let item of signs">
+        <p></p>
+        <p>{{ item }}</p>
+      </div>
+
+    </div>
+    
+    <div id="shadow" [class.active]="modal.active" (click)="toggleModal()"></div>
+    <div class="modal" [class.active]="modal.active">
+      <div class="modal-head">
+        Editar Campo - {{ modal.title }}
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="input.value">
+      </div>
+      <div class="modal-footer">
+        <button (click)="endEditField(modal.title)">Finalizar</button>
+      </div>
+    </div>
+  
+    </div>
+  
+</div>

@@ -1,0 +1,34 @@
+$spacing: 8px;
+
+h1.title {
+    margin: 0;
+    padding: 0;
+    margin-top: $spacing * 2;
+    margin-bottom: $spacing/2;
+    font-size: 14px;
+    font-weight: 700;
+    color: #66686c;
+    display: block;
+    width: 100%;
+}
+.subtitle {
+    padding: 0;
+    margin: 0;
+    display: block;
+    font-size: 12px;
+    margin-bottom: $spacing *2;
+    color: #a3a7ab;
+}
+
+h1 {
+    margin-bottom: $spacing * 4;
+}
+
+table {
+    background-color: #fff;
+    border:1px solid #aeaeae;
+    .key {
+        font-size: 10px;
+        font-weight: 700;
+    }
+}

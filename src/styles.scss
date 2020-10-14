@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    background-color: #ecf0f3;
+}
+
+* {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.btn {
+    &.btn-koyama {
+        background-color: #9c66bf;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: bold;
+    }
+}
